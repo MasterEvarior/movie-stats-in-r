@@ -1,0 +1,20 @@
+---
+title: "Libraries"
+---
+
+```{r message=FALSE, warning=FALSE}
+# load libraries
+library(readr)
+library(dplyr)
+library(ggplot2)
+```
+
+```{r message=FALSE, warning=FALSE}
+# load all the different datasets
+movies <- read_csv('data/Movies.csv')
+animated_movies <- read_csv('data/Animated_Movies.csv')
+anime_movies <- read_csv('data/Anime_Movies.csv')
+documentaries <- read_csv('data/Documentary_Movies.csv')
+kids_movies <- read_csv('data/Kids_Movies.csv')
+```
+

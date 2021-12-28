@@ -1,9 +1,15 @@
 name: "movie-stats"
 output_dir: "/docs"
+exclude: ["*.csv", "*.md", "docs", "/data"]
 navbar:
   title: "My Movie Stats"
   left:
     - text: "Home"
       href: index.html
-    - text: "About"
-      href: about.html
+      icon: fa-home
+    - text: Libraries
+      href: libraries.html
+      icon: fa-swatchbook
+  right:
+    - icon: fa-github
+      href: https://github.com/MasterEvarior

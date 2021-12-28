@@ -2,4 +2,8 @@
 title: "My Movie Stats"
 ---
 
-Hello, Website!
+This is a website created with [R](https://www.r-project.org) and [rmarkdown's site generator](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-configuration). Just for me to explore some of R's possibilities.
+
+All the data is from my (legally) sourced [Plex](https://plex.tv) media collection. Just the movies though, because to also include the TB's of series would have been too much work :).
+
+Have fun looking around!
