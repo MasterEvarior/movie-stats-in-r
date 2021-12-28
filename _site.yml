@@ -1,6 +1,6 @@
 name: "movie-stats"
 output_dir: "/docs"
-exclude: ["*.csv", "*.md", "docs", "/data"]
+exclude: ["*.csv", "*.md", "docs", "data"]
 navbar:
   title: "My Movie Stats"
   left:
