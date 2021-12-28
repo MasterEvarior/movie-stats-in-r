@@ -1,0 +1,9 @@
+name: "movie-stats"
+output_dir: "/docs"
+navbar:
+  title: "My Movie Stats"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
