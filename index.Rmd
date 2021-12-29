@@ -7,3 +7,5 @@ This is a website created with [R](https://www.r-project.org) and [rmarkdown's s
 All the data is from my (legally) sourced [Plex](https://plex.tv) media collection. Just the movies though, because to also include the TB's of series would have been too much work :).
 
 Have fun looking around!
+
+![cringy gif](https://media.giphy.com/media/js0dt5JLCU01bvlt7d/giphy.gif)
