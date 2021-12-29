@@ -2,7 +2,7 @@
 title: "Libraries"
 ---
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, echo=FALSE}
 # load libraries
 library(readr)
 library(dplyr)
@@ -10,7 +10,6 @@ library(ggplot2)
 ```
 
 ```{r message=FALSE, warning=FALSE}
-# load all the different datasets
 movies <- read_csv('data/Movies.csv')
 animated_movies <- read_csv('data/Animated_Movies.csv')
 anime_movies <- read_csv('data/Anime_Movies.csv')
