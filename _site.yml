@@ -1,15 +1,24 @@
 name: "movie-stats"
 output_dir: "/docs"
-exclude: ["*.csv", "*.md", "docs", "/data"]
+exclude: ["*.csv", "*.md", "docs", "data"]
 navbar:
   title: "My Movie Stats"
   left:
     - text: "Home"
       href: index.html
       icon: fa-home
-    - text: Libraries
+    - text: "Libraries"
       href: libraries.html
       icon: fa-swatchbook
+    - text: "Age Rating"
+      href: age_rating.html
+      icon: fa-baby
+    - text: "Content Rating"
+      href: content_rating.html
+      icon: fa-star-half-alt
+    - text: "Play Time"
+      href: play_time.html
+      icon: fa-clock
   right:
     - icon: fa-github
       href: https://github.com/MasterEvarior

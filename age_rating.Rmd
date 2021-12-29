@@ -1,0 +1,52 @@
+---
+title: "Age Rating"
+---
+The goal is to assess how child friendly (or not) my collection is. If you don't care about the programming and stuff, just [skip ahead](#the-result).
+
+```{r message=FALSE, echo=FALSE, error=FALSE, warning=FALSE}
+# load libraries
+library(readr)
+library(dplyr)
+library(ggplot2)
+```
+
+## The process
+The process is split in different parts:  
+* Loading the data  
+* Cleaning up
+
+### Loading the data
+To analyse all age ratings through all the libraries, we first load the existing `.csv` files with the data from Plex. We then combine them into one giant data frame.
+```{r warning=FALSE, message=FALSE, error=FALSE}
+all_movie_libraries <- list.files(path = "data", pattern = "*.csv", full.names = TRUE) %>%
+                              lapply(read.csv) %>%
+                              lapply(\(x) mutate(x, across(Audience.Rating, as.double))) %>%
+                              bind_rows()
+```
+
+This gives us a data frame with just over `r nrow(all_movie_libraries)` rows, which means we have that many movies in our database.
+
+Now we isolate the ratings and see what data is available.
+```{r warning=FALSE, message=FALSE, error=FALSE}
+just_age_ratings <- all_movie_libraries %>%
+                       transmute(age_rating = Content.Rating)
+
+print(table(just_age_ratings))
+```
+
+As you can see it's a mess of different rating systems.
+Let's try to clean this mess up.
+
+### Cleaning up
+I'm guessing the `ch/`-prefix is for the swiss system of rating, so I will try to use that.
+
+`ch/U`, `Not Rated` and `NR` all seems to refer to movies that never got an official rating. That means we will aggregate all of those under `ch/U`. 
+```{r warning=FALSE, message=FALSE, error=FALSE}
+just_age_ratings <- just_age_ratings %>%
+                      table() %>%
+                      as.data.frame()
+
+print(just_age_ratings)
+```
+
+## The result
