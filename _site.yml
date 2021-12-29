@@ -12,7 +12,7 @@ navbar:
       icon: fa-swatchbook
     - text: "Age Rating"
       href: age_rating.html
-      icon: fa-baby
+      icon: fa-child
     - text: "Content Rating"
       href: content_rating.html
       icon: fa-star-half-alt
