@@ -1,6 +1,7 @@
 ---
 title: "Libraries"
 ---
+My Plex server has a few different movie libraries. This is mostly so I can filter more easily. In all the other statistics I don't differentiate between them but I still think there should be a short look at it.
 
 ```{r message=FALSE, warning=FALSE, echo=FALSE}
 # load libraries
@@ -9,6 +10,7 @@ library(dplyr)
 library(ggplot2)
 ```
 
+Simply load all `.csv` files independently..
 ```{r message=FALSE, warning=FALSE}
 movies <- read_csv('data/Movies.csv')
 animated_movies <- read_csv('data/Animated_Movies.csv')
@@ -17,3 +19,13 @@ documentaries <- read_csv('data/Documentary_Movies.csv')
 kids_movies <- read_csv('data/Kids_Movies.csv')
 ```
 
+and then create a new data frame with a row count from each library data frame. Then create a graph and BOOM! stats.
+```{r message=FALSE, warning=FALSE}
+amount_of_movies <- data.frame(Library=c("Animated Movies", "Anime Movies", "Documentaries", "Kids Movies", "Movies"), Amount=c(nrow(animated_movies), nrow(anime_movies), nrow(documentaries), nrow(kids_movies), nrow(movies)))
+
+amount_of_movies %>%
+  ggplot(aes(x=Library, y=Amount, color=Amount)) +
+    geom_bar(stat="identity", fill="white") +
+    geom_text(aes(label=Amount), position = position_dodge(1.9), size=3.5, vjust=1.6) + 
+    theme_classic()
+```
