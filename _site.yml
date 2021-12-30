@@ -10,7 +10,7 @@ navbar:
     - text: "Libraries"
       href: libraries.html
       icon: fa-swatchbook
-    - text: "Content Rating"
+    - text: "Audience/Critic Rating"
       href: content_rating.html
       icon: fa-star-half-alt
     - text: "Play Time"
