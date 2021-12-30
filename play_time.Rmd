@@ -1,0 +1,71 @@
+---
+title: "Play Time"
+---
+The goal is to assess how child friendly (or not) my collection is. If you don't care about the programming and stuff, just [skip ahead](#the-result).
+
+```{r message=FALSE, echo=FALSE, error=FALSE, warning=FALSE}
+# load libraries
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+
+## The process
+The process is split in different parts:  
+* Loading the data  
+* Cleaning up
+
+### Loading the data
+To analyse all age ratings through all the libraries, we first load the existing `.csv` files with the data from Plex. We then combine them into one giant data frame.
+```{r warning=FALSE, message=FALSE, error=FALSE}
+all_movie_libraries <- list.files(path = "data", pattern = "*.csv", full.names = TRUE) %>%
+                              lapply(read.csv) %>%
+                              lapply(\(x) mutate(x, across(Audience.Rating, as.double))) %>%
+                              bind_rows()
+```
+
+
+```{r warning=FALSE, message=FALSE, error=FALSE}
+all_movie_libraries <- all_movie_libraries %>%
+                                separate(Duration, c('play_time_hours', 'play_time_minutes', 'play_time_seconds'), ':') %>%
+                                mutate(play_time_hours = as.numeric(play_time_hours), play_time_minutes = as.numeric(play_time_minutes), play_time_seconds = as.numeric(play_time_seconds)) %>%
+                                mutate(play_time_single_in_minutes = ceiling(play_time_hours*60 + play_time_minutes + play_time_seconds/60)) %>%
+                                select(title = Title,view_count = View.Count, play_time_single_in_minutes)
+                                
+head(all_movie_libraries)
+```
+
+
+```{r warning=FALSE, message=FALSE, error=FALSE, echo=FALSE}
+row_count_before_filtering = nrow(all_movie_libraries)
+```
+
+```{r warning=FALSE, message=FALSE, error=FALSE}
+all_movie_libraries = all_movie_libraries %>%
+                          filter(view_count != 'N/A')
+```
+With this we reduced the rows in our data frame from `r row_count_before_filtering` to `r nrow(all_movie_libraries)`.
+
+```{r warning=FALSE, message=FALSE, error=FALSE}
+all_movie_libraries <- all_movie_libraries %>%
+                        mutate(view_count = as.numeric(view_count)) %>%
+                        mutate(play_time_total_in_minutes = play_time_single_in_minutes * view_count) %>%
+                        select(title, play_time_total_in_minutes)
+
+head(all_movie_libraries)
+```
+
+```{r warning=FALSE, message=FALSE, error=FALSE}
+all_movie_libraries <- all_movie_libraries %>%
+                        arrange(desc(play_time_total_in_minutes)) %>%
+                        head(10)
+
+all_movie_libraries %>% 
+  ggplot(aes(x=title, y=play_time_total_in_minutes, color=play_time_total_in_minutes)) +
+    geom_bar(stat="identity", fill="white") +
+    scale_x_discrete(guide = guide_axis(angle = 90)) +
+    geom_text(aes(label=play_time_total_in_minutes), position = position_dodge(1.9), size=3.5, vjust=1.6) +
+    labs(title = 'My most watched movies by time spent watching', y = 'Time watched in minutes', x = 'Movie Titles') +
+    theme_classic()
+```
