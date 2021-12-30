@@ -1,7 +1,7 @@
 ---
 title: "Play Time"
 ---
-The goal is to assess how child friendly (or not) my collection is. If you don't care about the programming and stuff, just [skip ahead](#the-result).
+So I want to see with wich movies I have wasted the most amount of time.
 
 ```{r message=FALSE, echo=FALSE, error=FALSE, warning=FALSE}
 # load libraries
@@ -11,13 +11,7 @@ library(tidyr)
 library(ggplot2)
 ```
 
-## The process
-The process is split in different parts:  
-* Loading the data  
-* Cleaning up
-
-### Loading the data
-To analyse all age ratings through all the libraries, we first load the existing `.csv` files with the data from Plex. We then combine them into one giant data frame.
+To analyse all the movies throughout all the libraries, we first load the existing `.csv` files with the data from Plex. We then combine them into one giant data frame.
 ```{r warning=FALSE, message=FALSE, error=FALSE}
 all_movie_libraries <- list.files(path = "data", pattern = "*.csv", full.names = TRUE) %>%
                               lapply(read.csv) %>%
@@ -25,7 +19,7 @@ all_movie_libraries <- list.files(path = "data", pattern = "*.csv", full.names =
                               bind_rows()
 ```
 
-
+We then change the `Duration` from the format HH:MM:SS to an amount in minutes. Also we discard a lot of columns we don't need anymore.
 ```{r warning=FALSE, message=FALSE, error=FALSE}
 all_movie_libraries <- all_movie_libraries %>%
                                 separate(Duration, c('play_time_hours', 'play_time_minutes', 'play_time_seconds'), ':') %>%
@@ -41,12 +35,14 @@ head(all_movie_libraries)
 row_count_before_filtering = nrow(all_movie_libraries)
 ```
 
+Now let's filter out all movies that haven't been watched before.
 ```{r warning=FALSE, message=FALSE, error=FALSE}
 all_movie_libraries = all_movie_libraries %>%
                           filter(view_count != 'N/A')
 ```
 With this we reduced the rows in our data frame from `r row_count_before_filtering` to `r nrow(all_movie_libraries)`.
 
+After that we multiply the amount of minutes with the amount of times the movie has been played. This gives us the total amount of time played.
 ```{r warning=FALSE, message=FALSE, error=FALSE}
 all_movie_libraries <- all_movie_libraries %>%
                         mutate(view_count = as.numeric(view_count)) %>%
@@ -56,6 +52,7 @@ all_movie_libraries <- all_movie_libraries %>%
 head(all_movie_libraries)
 ```
 
+And now sort the data frame in a descending order, pick the top 10 rows and make a bar plot.
 ```{r warning=FALSE, message=FALSE, error=FALSE}
 all_movie_libraries <- all_movie_libraries %>%
                         arrange(desc(play_time_total_in_minutes)) %>%
