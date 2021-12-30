@@ -10,9 +10,6 @@ navbar:
     - text: "Libraries"
       href: libraries.html
       icon: fa-swatchbook
-    - text: "Age Rating"
-      href: age_rating.html
-      icon: fa-child
     - text: "Content Rating"
       href: content_rating.html
       icon: fa-star-half-alt
