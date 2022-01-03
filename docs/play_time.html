@@ -317,7 +317,7 @@ head(all_movie_libraries)</code></pre>
 <p>Now let’s filter out all movies that haven’t been watched before.</p>
 <pre class="r"><code>all_movie_libraries = all_movie_libraries %&gt;%
                           filter(view_count != &#39;N/A&#39;)</code></pre>
-<p>With this we reduced the rows in our data frame from 874 to 276.</p>
+<p>With this we reduced the rows in our data frame from 869 to 287.</p>
 <p>After that we multiply the amount of minutes with the amount of times the movie has been played. This gives us the total amount of time played.</p>
 <pre class="r"><code>all_movie_libraries &lt;- all_movie_libraries %&gt;%
                         mutate(view_count = as.numeric(view_count)) %&gt;%

@@ -312,7 +312,7 @@ head(all_movie_libraries)</code></pre>
 ## 4 Batman vs Teenage Mutant Ninja Turtles          10.0             8.6
 ## 5                    Batman vs. Two-Face          10.0             6.1
 ## 6              Batman: Assault on Arkham           7.5             8.5</code></pre>
-<p>This brings us down from 874 to 813 movies. This is now pretty nice to look at but won’t work with ggplot2. For that the data has to be transformed from “wide” to “long”. Like that:</p>
+<p>This brings us down from 869 to 810 movies. This is now pretty nice to look at but won’t work with ggplot2. For that the data has to be transformed from “wide” to “long”. Like that:</p>
 <pre class="r"><code>wide_data &lt;- all_movie_libraries %&gt;%
                 gather(&#39;critic_rating&#39;,&#39;audience_rating&#39;, key=&#39;rating_type&#39;, value=&#39;rating&#39;)</code></pre>
 <p>This means we now have two rows for each movie:</p>
@@ -368,13 +368,13 @@ lowest_score_row_audience &lt;- all_movie_libraries[which.min(all_movie_librarie
 <tbody>
 <tr class="odd">
 <td>Amount of movies with rating &lt; 5.0</td>
-<td>100 (12.3%)</td>
-<td>70 (8.61%)</td>
+<td>98 (12.1%)</td>
+<td>67 (8.27%)</td>
 </tr>
 <tr class="even">
 <td>Amount of movies with rating &lt; 2.5</td>
-<td>22 (2.71%)</td>
-<td>3 (0.37%)</td>
+<td>20 (2.47%)</td>
+<td>2 (0.25%)</td>
 </tr>
 <tr class="odd">
 <td>Amount of movies with rating &lt; 1.0</td>
